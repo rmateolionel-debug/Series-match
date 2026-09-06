@@ -1,0 +1,142 @@
+[
+    {
+        "titulo": "Stranger Things",
+        "genero": "Ciencia Ficción",
+        "rating": 8.7,
+        "anio": 2016,
+        "temporadas": 4
+    },
+    {
+        "titulo": "Breaking Bad",
+        "genero": "Drama",
+        "rating": 9.5,
+        "anio": 2008,
+        "temporadas": 5
+    },
+    {
+        "titulo": "The Office",
+        "genero": "Comedia",
+        "rating": 9.0,
+        "anio": 2005,
+        "temporadas": 9
+    },
+    {
+        "titulo": "The Walking Dead",
+        "genero": "Terror",
+        "rating": 8.1,
+        "anio": 2010,
+        "temporadas": 11
+    },
+    {
+        "titulo": "Dark",
+        "genero": "Ciencia Ficción",
+        "rating": 8.7,
+        "anio": 2017,
+        "temporadas": 3
+    },
+    {
+        "titulo": "Wednesday",
+        "genero": "Terror",
+        "rating": 8.0,
+        "anio": 2022,
+        "temporadas": 2
+    },
+    {
+        "titulo": "Friends",
+        "genero": "Comedia",
+        "rating": 8.9,
+        "anio": 1994,
+        "temporadas": 10
+    },
+    {
+        "titulo": "The Last of Us",
+        "genero": "Drama",
+        "rating": 8.6,
+        "anio": 2023,
+        "temporadas": 2
+    },
+    {
+        "titulo": "Black Mirror",
+        "genero": "Ciencia Ficción",
+        "rating": 8.7,
+        "anio": 2011,
+        "temporadas": 7
+    },
+    {
+        "titulo": "Bridgerton",
+        "genero": "Romance",
+        "rating": 7.4,
+        "anio": 2020,
+        "temporadas": 4
+    },
+    {
+        "titulo": "The Boys",
+        "genero": "Acción",
+        "rating": 8.6,
+        "anio": 2019,
+        "temporadas": 5
+    },
+    {
+        "titulo": "Peaky Blinders",
+        "genero": "Drama",
+        "rating": 8.7,
+        "anio": 2013,
+        "temporadas": 6
+    },
+    {
+        "titulo": "La Casa de Papel",
+        "genero": "Acción",
+        "rating": 8.2,
+        "anio": 2017,
+        "temporadas": 5
+    },
+    {
+        "titulo": "The Vampire Diaries",
+        "genero": "Romance",
+        "rating": 7.7,
+        "anio": 2009,
+        "temporadas": 8
+    },
+    {
+        "titulo": "Cobra Kai",
+        "genero": "Acción",
+        "rating": 8.4,
+        "anio": 2018,
+        "temporadas": 6
+    },
+    {
+        "titulo": "How I Met Your Mother",
+        "genero": "Comedia",
+        "rating": 8.3,
+        "anio": 2005,
+        "temporadas": 9
+    },
+    {
+        "titulo": "The Haunting of Hill House",
+        "genero": "Terror",
+        "rating": 8.5,
+        "anio": 2018,
+        "temporadas": 1
+    },
+    {
+        "titulo": "The Crown",
+        "genero": "Drama",
+        "rating": 8.6,
+        "anio": 2016,
+        "temporadas": 6
+    },
+    {
+        "titulo": "Lost",
+        "genero": "Ciencia Ficción",
+        "rating": 8.3,
+        "anio": 2004,
+        "temporadas": 6
+    },
+    {
+        "titulo": "You",
+        "genero": "Suspenso",
+        "rating": 7.6,
+        "anio": 2018,
+        "temporadas": 5
+    }
+]
