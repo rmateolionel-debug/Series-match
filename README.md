@@ -12,7 +12,7 @@ El sistema permite buscar series por título, listar todas las series disponible
 
 - Milena Iñiguez
 - Mateo Rodriguez 
-- Yazmin Arbona 
+- Yasmin Arbona 
 
 ## Dominio
 
