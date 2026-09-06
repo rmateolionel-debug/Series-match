@@ -47,7 +47,7 @@ Sus principales atributos son:
 - Título
 - Género
 - Rating
-- Año
+- Anio
 - Cantidad de temporadas
 
 ### Usuario
