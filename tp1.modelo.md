@@ -1,5 +1,5 @@
 class Serie:
-    def __init__(self, titulo, genero, rating, anio, temporadas):
+    def __init__(self, titulo, genero, rating, año, temporadas):
         self._titulo = titulo
         self._genero = genero
         self._rating = rating
