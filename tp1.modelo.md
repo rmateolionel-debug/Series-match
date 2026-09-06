@@ -30,5 +30,4 @@ class Serie:
         return (
             f"{self._titulo} ({self._genero}) "
             f"⭐{self._rating} - {self._año} - "
-            f"{self._temporadas} temporadas"
-        )
+            f"{self._temporadas} temporadas"   )
