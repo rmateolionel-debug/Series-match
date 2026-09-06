@@ -1,7 +1,7 @@
-import json
+
 
 from modelos.serie import Serie
-
+import.json 
 
 def cargar_datos():
     with open("datos/series.json", "r", encoding="utf-8") as archivo:
