@@ -1,7 +1,8 @@
 
 
+import json
 from modelos.serie import Serie
-import.json 
+from estructuras.arbol_binario import ArbolBST
 
 def cargar_datos():
     with open("datos/series.json", "r", encoding="utf-8") as archivo:
@@ -34,26 +35,23 @@ def mostrar_menu():
     print("-" * 50)
 
 
-def buscar(series):
+def buscar(arbol):
     titulo = input("Ingrese el título de la serie: ")
 
-    encontrados = []
-
-    for serie in series:
-        if titulo.lower() in serie.titulo.lower():
-            encontrados.append(serie)
+    resultado = arbol.buscar(
+        titulo.lower(),
+        clave=lambda e: e.titulo.lower()
+    )
 
     print("\n" + "-" * 50)
-    print("              RESULTADOS")
+    print("              RESULTADO")
     print("-" * 50)
 
-    if encontrados:
-        for serie in encontrados:
-            print(serie)
+    if resultado:
+        print(resultado)
     else:
-        print("No se encontraron series con ese título.")
-
-
+        print("No se encontró una serie con ese título.")
+        
 def listar(series):
     print("\n" + "-" * 50)
     print("              CATÁLOGO DE SERIES")
