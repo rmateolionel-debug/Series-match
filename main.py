@@ -1,5 +1,3 @@
-from estructuras.arbol_binario import ArbolBST
-import json
 from modelos.serie import Serie
 from estructuras.arbol_binario import ArbolBST
 
