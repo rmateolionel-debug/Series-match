@@ -1,3 +1,4 @@
+import json
 from modelos.serie import Serie
 from estructuras.arbol_binario import ArbolBST
 
@@ -24,3 +25,11 @@ arbol = ArbolBST()
 
 for elemento in lista_de_elementos:
     arbol.insertar(elemento, clave=lambda e: e.titulo.lower())
+print("Cantidad de series:", len(arbol.inorder()))
+
+resultado = arbol.buscar(
+    "breaking bad",
+    clave=lambda e: e.titulo.lower()
+)
+
+print("Resultado de búsqueda:", resultado)
