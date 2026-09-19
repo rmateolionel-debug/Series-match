@@ -84,6 +84,10 @@ def filtrar(series):
 def main():
     try:
         series = cargar_datos()
+        arbol = ArbolBST()
+
+for serie in series:
+    arbol.insertar(serie, clave=lambda e: e.titulo.lower())
     except FileNotFoundError:
         print("Error: no se encontró el archivo datos/series.json.")
         return
@@ -94,7 +98,7 @@ def main():
         opcion = input("Seleccione una opción: ")
 
         if opcion == "1":
-            buscar(series)
+    buscar(arbol) 
 
         elif opcion == "2":
             listar(series)
