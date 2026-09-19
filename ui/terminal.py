@@ -84,7 +84,6 @@ def filtrar(series):
 def main():
     try:
         series = cargar_datos()
-
         arbol = ArbolBST()
 
         for serie in series:
