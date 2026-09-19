@@ -140,6 +140,3 @@
         "temporadas": 5
     }
 ]
-arbol = ArbolBST()
-for elemento in lista_de_elementos:
-arbol.insertar(elemento, clave=lambda e: e.titulo.lower())
