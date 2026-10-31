@@ -3,6 +3,7 @@ from modelos.serie import Serie
 from estructuras.arbol_binario import ArbolBST
 from estructuras.avl import AVL
 from estructuras.arbol_general import ArbolGeneral
+from estructuras.grafo import GrafoSeries
 
 
 # ==================== CARGAR SERIES ====================
@@ -65,6 +66,27 @@ for serie in lista_de_elementos:
         nodos_generos[genero],
         serie.titulo
     )
+    
+# ==================== GRAFO DE SERIES (TP7) ====================
+
+grafo_series = GrafoSeries()
+
+# Agregar todas las series como vértices
+for serie in lista_de_elementos:
+    grafo_series.agregar_vertice(serie.titulo)
+
+# Conectar las series que comparten género
+for i in range(len(lista_de_elementos)):
+    for j in range(i + 1, len(lista_de_elementos)):
+        serie1 = lista_de_elementos[i]
+        serie2 = lista_de_elementos[j]
+
+        if serie1.genero.lower() == serie2.genero.lower():
+            grafo_series.agregar_arista(
+                serie1.titulo,
+                serie2.titulo
+            )
+
 # ==================== MOSTRAR RESULTADOS ====================
 
 print("=== SERIES-MATCH ===")
@@ -135,3 +157,34 @@ if nodo is not None:
         print("-", titulo)
 else:
     print("No se encontró el género.")
+    
+# ==================== RECOMENDACIONES CON GRAFOS (TP7) ====================
+
+print("\n=== SERIES RELACIONADAS ===")
+
+print("Vértices:", grafo_series.cantidad_vertices())
+print("Aristas:", grafo_series.cantidad_aristas())
+
+titulo_buscado = input(
+    "\nIngrese el título de una serie para ver recomendaciones: "
+).strip()
+
+# Buscar el título sin distinguir mayúsculas
+titulo_original = None
+
+for serie in lista_de_elementos:
+    if serie.titulo.lower() == titulo_buscado.lower():
+        titulo_original = serie.titulo
+        break
+
+if titulo_original is not None:
+    relacionadas = grafo_series.obtener_relacionadas(titulo_original)
+
+    if relacionadas:
+        print("\nSeries relacionadas con", titulo_original)
+        for titulo in relacionadas:
+            print("-", titulo)
+    else:
+        print("Esta serie no tiene conexiones.")
+else:
+    print("No se encontró la serie.")
