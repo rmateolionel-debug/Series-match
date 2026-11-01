@@ -4,6 +4,7 @@ from estructuras.arbol_binario import ArbolBST
 from estructuras.avl import AVL
 from estructuras.arbol_general import ArbolGeneral
 from estructuras.grafo import GrafoSeries
+from estructuras.cola_prioridad import obtener_top_n
 
 
 # ==================== CARGAR SERIES ====================
@@ -92,6 +93,14 @@ for i in range(len(lista_de_elementos)):
 print("=== SERIES-MATCH ===")
 
 print("Cantidad de series:", len(lista_de_elementos))
+# ==================== RECOMENDACIONES TOP 5 (TP6) ====================
+
+print("\n=== TOP 5 SERIES RECOMENDADAS ===")
+
+mejores_series = obtener_top_n(lista_de_elementos, 5)
+
+for posicion, serie in enumerate(mejores_series, start=1):
+    print(f"{posicion}. {serie}")
 
 print("\n=== COMPARACIÓN BST VS AVL ===")
 print("Altura BST:", arbol_bst.altura())
