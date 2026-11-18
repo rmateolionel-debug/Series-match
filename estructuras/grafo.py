@@ -8,7 +8,7 @@ Cada vértice representa una serie.
 Dos series están conectadas si comparten género.
 Representación mediante lista de adyacencia.
 """
-
+from collections import deque
 
 class GrafoSeries:
     def __init__(self):
@@ -49,3 +49,85 @@ class GrafoSeries:
         return sum(
             len(vecinos) for vecinos in self.adyacencias.values()
         ) // 2
+
+    def bfs(self, origen, destino):
+        """Busca el camino más corto entre dos series usando BFS."""
+
+        if origen not in self.adyacencias or destino not in self.adyacencias:
+            return []
+
+        visitados = {origen}
+        cola = deque([origen])
+        anteriores = {origen: None}
+
+        while cola:
+            actual = cola.popleft()
+
+            if actual == destino:
+                camino = []
+                while actual is not None:
+                    camino.append(actual)
+                    actual = anteriores[actual]
+
+                return camino[::-1]
+
+            for vecino in self.adyacencias[actual]:
+                if vecino not in visitados:
+                    visitados.add(vecino)
+                    anteriores[vecino] = actual
+                    cola.append(vecino)
+
+        return []
+
+    def dfs(self, origen):
+        """Explora las series relacionadas usando DFS."""
+
+        if origen not in self.adyacencias:
+            return []
+
+        visitados = set()
+        pila = [origen]
+        recorrido = []
+
+        while pila:
+            actual = pila.pop()
+
+            if actual not in visitados:
+                visitados.add(actual)
+                recorrido.append(actual)
+
+                for vecino in reversed(self.adyacencias[actual]):
+                    if vecino not in visitados:
+                        pila.append(vecino)
+
+        return recorrido
+
+    def bfs_mas_cercana(self, origen):
+        """Encuentra la serie más cercana usando BFS."""
+
+        if origen not in self.adyacencias:
+            return []
+
+        visitados = {origen}
+        cola = deque([origen])
+        anteriores = {origen: None}
+
+        while cola:
+            actual = cola.popleft()
+
+            if actual != origen:
+                camino = []
+
+                while actual is not None:
+                    camino.append(actual)
+                    actual = anteriores[actual]
+
+                return camino[::-1]
+
+            for vecino in self.adyacencias[actual]:
+                if vecino not in visitados:
+                    visitados.add(vecino)
+                    anteriores[vecino] = actual
+                    cola.append(vecino)
+
+        return []

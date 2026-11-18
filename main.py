@@ -90,28 +90,39 @@ for i in range(len(lista_de_elementos)):
 
 # ==================== MOSTRAR RESULTADOS ====================
 
-print("=== SERIES-MATCH ===")
+print("\n")
+print("╔══════════════════════════════════════════╗")
+print("║                                          ║")
+print("║              SERIES-MATCH                ║")
+print("║       SISTEMA DE RECOMENDACIÓN           ║")
+print("║                                          ║")
+print("╚══════════════════════════════════════════╝")
 
-print("Cantidad de series:", len(lista_de_elementos))
+print(f"\n  Catálogo disponible: {len(lista_de_elementos)} series")
+print("\n" + "─" * 44)
 # ==================== RECOMENDACIONES TOP 5 (TP6) ====================
 
-print("\n=== TOP 5 SERIES RECOMENDADAS ===")
+print("\n" + "═" * 44)
+print("          ★ TOP 5 SERIES RECOMENDADAS")
+print("═" * 44)
 
 mejores_series = obtener_top_n(lista_de_elementos, 5)
 
 for posicion, serie in enumerate(mejores_series, start=1):
-    print(f"{posicion}. {serie}")
+    print(f"\n  {posicion}. {serie.titulo}")
+    print(f"     Género: {serie.genero}")
+    print(f"     Rating: {serie.rating} ★")
 
-print("\n=== COMPARACIÓN BST VS AVL ===")
-print("Altura BST:", arbol_bst.altura())
-print("Altura AVL:", arbol_avl.altura())
+print("\n" + "─" * 44)
 
 
 # ==================== BÚSQUEDA CON AVL ====================
 
-print("\n=== BÚSQUEDA DE SERIES CON AVL ===")
+print("\n" + "═" * 44)
+print("             🔎 BUSCAR UNA SERIE")
+print("═" * 44)
 
-titulo = input("Ingrese el título de una serie: ").strip().lower()
+titulo = input("\n  Ingresá el título de una serie: ").strip().lower()
 
 resultado = arbol_avl.buscar(
     titulo,
@@ -119,9 +130,16 @@ resultado = arbol_avl.buscar(
 )
 
 if resultado is not None:
-    print("Serie encontrada:", resultado)
+    print("\n  ✓ SERIE ENCONTRADA")
+    print("\n  ┌────────────────────────────────")
+    print(f"  │ Título: {resultado.titulo}")
+    print(f"  │ Género: {resultado.genero}")
+    print(f"  │ Rating: {resultado.rating} ★")
+    print("  └────────────────────────────────")
 else:
-    print("No se encontró la serie.")
+    print("\n  ✗ No se encontró la serie.")
+
+print("\n" + "─" * 44)
 
 
 # ==================== RECORRIDOS AVL ====================
@@ -138,13 +156,38 @@ print("Raíz:", arbol_general.raiz.dato)
 print("Altura:", arbol_general.altura())
 print("Cantidad de nodos:", arbol_general.cantidad_nodos())
 
-print("\n--- Recorrido en amplitud ---")
-for elemento in arbol_general.amplitud():
-    print(elemento)
+print("\n" + "═" * 44)
+print("       🌳 RECORRIDO EN AMPLITUD")
+print("═" * 44)
 
-print("\n--- Recorrido en profundidad ---")
-for elemento in arbol_general.profundidad_preorder():
-    print(elemento)
+recorrido = arbol_general.amplitud()
+
+for elemento in recorrido:
+    print(f"\n  • {elemento}")
+
+print("\n" + "═" * 44)
+
+print("\n" + "=" * 45)
+print("\n" + "═" * 44)
+print("\n" + "═" * 44)
+print("       🌳 RECORRIDO EN AMPLITUD")
+print("═" * 44)
+
+recorrido = arbol_general.amplitud()
+
+print("\n  🏠 SERIES-MATCH")
+
+for genero, nodo_genero in nodos_generos.items():
+    if genero in recorrido:
+        print(f"\n  📁 {genero.upper()}")
+
+        series = arbol_general.listar_hijos(nodo_genero)
+
+        for serie in series:
+            if serie in recorrido:
+                print(f"      └── {serie}")
+
+print("\n" + "═" * 44)
 
 
 # ==================== BÚSQUEDA DE CATEGORÍAS ====================
@@ -156,7 +199,7 @@ genero_buscado = input("Ingrese un género: ").strip().lower()
 nodo = None
 
 for genero in nodos_generos:
-    if genero.lower() == genero_buscado:
+    if genero.lower().replace("ó", "o") == genero_buscado.replace("ó", "o"):
         nodo = nodos_generos[genero]
         break
 
@@ -166,34 +209,58 @@ if nodo is not None:
         print("-", titulo)
 else:
     print("No se encontró el género.")
-    
-# ==================== RECOMENDACIONES CON GRAFOS (TP7) ====================
 
-print("\n=== SERIES RELACIONADAS ===")
 
-print("Vértices:", grafo_series.cantidad_vertices())
-print("Aristas:", grafo_series.cantidad_aristas())
+# ==================== RECORRIDOS DE GRAFOS (TP7) ====================
 
-titulo_buscado = input(
-    "\nIngrese el título de una serie para ver recomendaciones: "
-).strip()
+print("\n" + "═" * 44)
+print("             🌐 RED DE SERIES")
+print("═" * 44)
 
-# Buscar el título sin distinguir mayúsculas
-titulo_original = None
+print(f"\n  Cantidad de series: {grafo_series.cantidad_vertices()}")
+print(f"  Conexiones: {grafo_series.cantidad_aristas()}")
 
-for serie in lista_de_elementos:
-    if serie.titulo.lower() == titulo_buscado.lower():
-        titulo_original = serie.titulo
-        break
+# ==================== CONSULTA BFS ====================
 
-if titulo_original is not None:
-    relacionadas = grafo_series.obtener_relacionadas(titulo_original)
+print("\n" + "─" * 44)
+print("       🔎 BFS - SERIE MÁS CERCANA")
+print("─" * 44)
 
-    if relacionadas:
-        print("\nSeries relacionadas con", titulo_original)
-        for titulo in relacionadas:
-            print("-", titulo)
-    else:
-        print("Esta serie no tiene conexiones.")
+origen_bfs = "The Boys"
+
+print(f"\n  Consulta: ¿Cuál es la serie relacionada más cercana a {origen_bfs}?")
+
+camino = grafo_series.bfs_mas_cercana(origen_bfs)
+
+if camino:
+    print("\n  ✓ RESULTADO")
+    print("\n  " + " → ".join(camino))
+    print(f"\n  Cantidad de conexiones: {len(camino) - 1}")
 else:
-    print("No se encontró la serie.")
+    print("\n  No se encontraron series relacionadas.")
+
+# ==================== CONSULTA DFS ====================
+
+print("\n" + "─" * 44)
+print("       🧭 DFS - EXPLORACIÓN EN PROFUNDIDAD")
+print("─" * 44)
+
+origen_dfs = "Stranger Things"
+
+print(f"\n  Consulta: ¿Qué series están relacionadas con {origen_dfs}?")
+
+recorrido = grafo_series.dfs(origen_dfs)
+
+print("\n  ✓ SERIES EXPLORADAS:\n")
+
+for posicion, titulo in enumerate(recorrido, start=1):
+    print(f"    {posicion}. {titulo}")
+
+print(f"\n  Total de series exploradas: {len(recorrido)}")
+
+# ==================== DESPEDIDA ====================
+
+print("\n" + "═" * 44)
+print("       ¡GRACIAS POR UTILIZAR")
+print("            SERIES-MATCH!")
+print("═" * 44)
