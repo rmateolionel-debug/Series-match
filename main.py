@@ -1,3 +1,4 @@
+
 import json
 from modelos.serie import Serie
 from estructuras.arbol_binario import ArbolBST
@@ -5,6 +6,15 @@ from estructuras.avl import AVL
 from estructuras.arbol_general import ArbolGeneral
 from estructuras.grafo import GrafoSeries
 from estructuras.cola_prioridad import obtener_top_n
+
+# ==================== COLORES ====================
+
+VIOLETA = "\033[95m"
+ROSA = "\033[38;5;218m"
+LILA = "\033[38;5;183m"
+VERDE = "\033[92m"
+ROJO = "\033[91m"
+RESET = "\033[0m"
 
 
 # ==================== CARGAR SERIES ====================
@@ -46,37 +56,34 @@ for elemento in lista_de_elementos:
         clave=lambda e: e.titulo.lower()
     )
 
+
 # ==================== ÁRBOL GENERAL (TP5) ====================
 
 arbol_general = ArbolGeneral()
 raiz = arbol_general.insertar_raiz("Series-match")
 
-# Guardar los nodos de los géneros
 nodos_generos = {}
 
 for serie in lista_de_elementos:
     genero = serie.genero
 
-    # Crear el género si todavía no existe
     if genero not in nodos_generos:
         nodo_genero = arbol_general.agregar_hijo(raiz, genero)
         nodos_generos[genero] = nodo_genero
 
-    # Agregar la serie como hija de su género
     arbol_general.agregar_hijo(
         nodos_generos[genero],
         serie.titulo
     )
-    
+
+
 # ==================== GRAFO DE SERIES (TP7) ====================
 
 grafo_series = GrafoSeries()
 
-# Agregar todas las series como vértices
 for serie in lista_de_elementos:
     grafo_series.agregar_vertice(serie.titulo)
 
-# Conectar las series que comparten género
 for i in range(len(lista_de_elementos)):
     for j in range(i + 1, len(lista_de_elementos)):
         serie1 = lista_de_elementos[i]
@@ -88,39 +95,41 @@ for i in range(len(lista_de_elementos)):
                 serie2.titulo
             )
 
-# ==================== MOSTRAR RESULTADOS ====================
+
+# ==================== ENCABEZADO ====================
 
 print("\n")
-print("╔══════════════════════════════════════════╗")
+print(VIOLETA + "╔══════════════════════════════════════════╗")
 print("║                                          ║")
-print("║              SERIES-MATCH                ║")
-print("║       SISTEMA DE RECOMENDACIÓN           ║")
+print("║              " + ROSA + "SERIES-MATCH" + VIOLETA + "                ║")
+print("║" + RESET + LILA + "       SISTEMA DE RECOMENDACIÓN           " + RESET + VIOLETA + "║")
 print("║                                          ║")
-print("╚══════════════════════════════════════════╝")
+print("╚══════════════════════════════════════════╝" + RESET)
 
 print(f"\n  Catálogo disponible: {len(lista_de_elementos)} series")
-print("\n" + "─" * 44)
+
+
 # ==================== RECOMENDACIONES TOP 5 (TP6) ====================
 
-print("\n" + "═" * 44)
+print("\n" + VIOLETA + "═" * 44)
 print("          ★ TOP 5 SERIES RECOMENDADAS")
-print("═" * 44)
+print("═" * 44 + RESET)
 
 mejores_series = obtener_top_n(lista_de_elementos, 5)
 
 for posicion, serie in enumerate(mejores_series, start=1):
-    print(f"\n  {posicion}. {serie.titulo}")
+    print(f"\n  {ROSA}{posicion}.{RESET} {serie.titulo}")
     print(f"     Género: {serie.genero}")
     print(f"     Rating: {serie.rating} ★")
 
-print("\n" + "─" * 44)
+print("\n" + VIOLETA + "─" * 44 + RESET)
 
 
 # ==================== BÚSQUEDA CON AVL ====================
 
-print("\n" + "═" * 44)
+print("\n" + VIOLETA + "═" * 44)
 print("             🔎 BUSCAR UNA SERIE")
-print("═" * 44)
+print("═" * 44 + RESET)
 
 titulo = input("\n  Ingresá el título de una serie: ").strip().lower()
 
@@ -139,39 +148,37 @@ if resultado is not None:
 else:
     print("\n  ✗ No se encontró la serie.")
 
-print("\n" + "─" * 44)
+print("\n" + VIOLETA + "─" * 44 + RESET)
 
 
-# ==================== RECORRIDOS AVL ====================
+# ==================== RECORRIDO INORDER DEL AVL ====================
 
-print("\n=== RECORRIDO INORDER DEL AVL ===")
+print("\n" + VIOLETA + "═" * 44)
+print("          🌳 RECORRIDO INORDER DEL AVL")
+print("═" * 44 + RESET)
 
 for serie in arbol_avl.inorder():
-    print(serie)
-    # ==================== RECORRIDOS ÁRBOL GENERAL ====================
+    print(f"\n  {VIOLETA}{serie.titulo}{RESET}")
+    print(f"     Género: {serie.genero}")
+    print(f"     Rating: {serie.rating} ★")
 
-print("\n=== ÁRBOL GENERAL DE SERIES ===")
+
+# ==================== ÁRBOL GENERAL DE SERIES ====================
+
+print("\n" + VIOLETA + "═" * 44)
+print("          🌳 ÁRBOL GENERAL DE SERIES")
+print("═" * 44 + RESET)
 
 print("Raíz:", arbol_general.raiz.dato)
 print("Altura:", arbol_general.altura())
 print("Cantidad de nodos:", arbol_general.cantidad_nodos())
 
-print("\n" + "═" * 44)
+
+# ==================== RECORRIDO EN AMPLITUD ====================
+
+print("\n" + VIOLETA + "═" * 44)
 print("       🌳 RECORRIDO EN AMPLITUD")
-print("═" * 44)
-
-recorrido = arbol_general.amplitud()
-
-for elemento in recorrido:
-    print(f"\n  • {elemento}")
-
-print("\n" + "═" * 44)
-
-print("\n" + "=" * 45)
-print("\n" + "═" * 44)
-print("\n" + "═" * 44)
-print("       🌳 RECORRIDO EN AMPLITUD")
-print("═" * 44)
+print("═" * 44 + RESET)
 
 recorrido = arbol_general.amplitud()
 
@@ -185,16 +192,18 @@ for genero, nodo_genero in nodos_generos.items():
 
         for serie in series:
             if serie in recorrido:
-                print(f"      └── {serie}")
+                print(f"      └── {VIOLETA}{serie}{RESET}")
 
-print("\n" + "═" * 44)
+print("\n" + VIOLETA + "═" * 44 + RESET)
 
 
 # ==================== BÚSQUEDA DE CATEGORÍAS ====================
 
-print("\n=== EXPLORAR CATEGORÍAS ===")
+print("\n" + VIOLETA + "═" * 44)
+print("          🔎 EXPLORAR CATEGORÍAS")
+print("═" * 44 + RESET)
 
-genero_buscado = input("Ingrese un género: ").strip().lower()
+genero_buscado = input("\n  Ingresá un género: ").strip().lower()
 
 nodo = None
 
@@ -205,26 +214,30 @@ for genero in nodos_generos:
 
 if nodo is not None:
     print("\nSeries del género", genero_buscado)
+
     for titulo in arbol_general.listar_hijos(nodo):
         print("-", titulo)
 else:
     print("No se encontró el género.")
 
+print("\n" + VIOLETA + "─" * 44 + RESET)
+
 
 # ==================== RECORRIDOS DE GRAFOS (TP7) ====================
 
-print("\n" + "═" * 44)
+print("\n" + VIOLETA + "═" * 44)
 print("             🌐 RED DE SERIES")
-print("═" * 44)
+print("═" * 44 + RESET)
 
 print(f"\n  Cantidad de series: {grafo_series.cantidad_vertices()}")
 print(f"  Conexiones: {grafo_series.cantidad_aristas()}")
 
+
 # ==================== CONSULTA BFS ====================
 
-print("\n" + "─" * 44)
+print("\n" + VIOLETA + "─" * 44)
 print("       🔎 BFS - SERIE MÁS CERCANA")
-print("─" * 44)
+print("─" * 44 + RESET)
 
 origen_bfs = "The Boys"
 
@@ -241,9 +254,9 @@ else:
 
 # ==================== CONSULTA DFS ====================
 
-print("\n" + "─" * 44)
+print("\n" + VIOLETA + "─" * 44)
 print("       🧭 DFS - EXPLORACIÓN EN PROFUNDIDAD")
-print("─" * 44)
+print("─" * 44 + RESET)
 
 origen_dfs = "Stranger Things"
 
@@ -260,7 +273,7 @@ print(f"\n  Total de series exploradas: {len(recorrido)}")
 
 # ==================== DESPEDIDA ====================
 
-print("\n" + "═" * 44)
+print("\n" + VIOLETA + "═" * 44)
 print("       ¡GRACIAS POR UTILIZAR")
 print("            SERIES-MATCH!")
-print("═" * 44)
+print("═" * 44 + RESET)
