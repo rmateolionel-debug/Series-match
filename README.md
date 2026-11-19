@@ -11,7 +11,6 @@ El sistema permite buscar series por título, listar todas las series disponible
 ## Integrantes
 
 - Milena Iñiguez
-- Mateo Rodriguez 
 - Yasmin Arbona 
 
 ## Dominio
