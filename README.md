@@ -32,7 +32,7 @@ El sistema cuenta con las siguientes funcionalidades:
 1. Buscar una serie por título.
 2. Listar todas las series disponibles.
 3. Filtrar series por género.
-4. Ver el Top N de series mejor valoradas.
+4. Ver el Top N1 de series mejor valoradas.
 5. Gestionar una lista de series favoritas.
 
 ## Clases principales
@@ -46,7 +46,7 @@ Sus principales atributos son:
 - Título
 - Género
 - Rating
-- Anio
+- Año
 - Cantidad de temporadas
 
 ### Usuario
