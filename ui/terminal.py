@@ -47,7 +47,7 @@ def buscar_serie(arbol_avl):
         print("Título:", resultado.titulo)
         print("Género:", resultado.genero)
         print("Rating:", resultado.rating)
-        print("Año:", resultado.año)
+        print("Año:", resultado.anio)
         print("Temporadas:", resultado.temporadas)
     else:
         print(ROJO + "\nNo se encontró la serie." + RESET)
@@ -69,7 +69,7 @@ def buscar_serie_bst(arbol_bst):
         print("Título:", resultado.titulo)
         print("Género:", resultado.genero)
         print("Rating:", resultado.rating)
-        print("Año:", resultado.año)
+        print("Año:", resultado.anio)
         print("Temporadas:", resultado.temporadas)
 
     else:

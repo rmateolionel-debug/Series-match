@@ -2,7 +2,7 @@
 
 ## Descripción
 
-Series-Match es un sistema de consulta y recomendación de series desarrollado en Python utilizando Programación Orientada a Objetos y diferentes estructuras de datos.
+Series-Match es un sistema de consulta y recomendación de series desarrollado en Python, utilizando Programación Orientada a Objetos y diferentes estructuras de datos.
 
 El proyecto permite consultar un catálogo de series y realizar distintas operaciones para facilitar la búsqueda y elección de contenido.
 
@@ -23,19 +23,29 @@ Elegimos este dominio porque existe una gran cantidad de series disponibles y mu
 
 Series-Match busca facilitar la búsqueda y elección de series según los intereses del usuario.
 
-Para ello, organiza la información del catálogo y permite buscar títulos, explorar géneros, consultar rankings y encontrar series relacionadas.
+Para eso, organiza la información del catálogo y permite buscar títulos, explorar géneros, consultar rankings y encontrar series relacionadas.
 
-## Funcionalidades
+## Funcionalidades del sistema
 
-El sistema cuenta con las siguientes funcionalidades:
+El sistema cuenta con un menú principal que ofrece las siguientes opciones:
 
-1. **Buscar una serie:** permite buscar una serie por título utilizando un árbol AVL.
-2. **Ver Top N series:** muestra las series mejor valoradas mediante una cola de prioridad.
-3. **Explorar categorías:** permite consultar las series organizadas por género mediante un árbol general.
-4. **Ver series relacionadas:** utiliza DFS para explorar las series conectadas con una serie de origen.
-5. **Encontrar camino entre dos series:** utiliza BFS para encontrar el camino más corto entre dos series.
-6. **Recibir recomendaciones por género:** muestra series de un género seleccionado, ordenadas por rating.
-7. **Buscar una serie en el BST:** el árbol binario de búsqueda también se encuentra implementado y permite realizar búsquedas por título.
+1. **Buscar una serie (AVL):** permite buscar una serie por su título utilizando un árbol AVL. Si la encuentra, muestra su información.
+
+2. **Ver Top N series:** permite indicar cuántas series se desean consultar y muestra las mejor valoradas mediante una cola de prioridad implementada con un heap máximo.
+
+3. **Explorar categorías (Árbol General):** permite consultar las series organizadas por género mediante un árbol general.
+
+4. **Ver series relacionadas (DFS):** permite ingresar el título de una serie y explorar las series conectadas con ella mediante el recorrido en profundidad DFS.
+
+5. **Encontrar camino entre dos series (BFS):** permite seleccionar dos series y buscar un camino entre ellas utilizando el recorrido en amplitud BFS.
+
+6. **Recibir recomendación por género:** permite seleccionar un género y muestra las series correspondientes ordenadas según su rating.
+
+7. **Ver recorridos y estructuras:** muestra el recorrido inorder del árbol AVL, información del árbol general, su recorrido en amplitud y datos del grafo. También presenta ejemplos de recorridos BFS y DFS.
+
+8. **Buscar una serie (BST):** permite buscar una serie por su título utilizando el árbol binario de búsqueda. Si la encuentra, muestra su información.
+
+0. **Salir:** finaliza la ejecución del programa.
 
 ## Estructuras de datos implementadas
 
@@ -45,13 +55,17 @@ Se utiliza para organizar las series según su título.
 
 Permite insertar elementos, realizar búsquedas y recorrer los datos.
 
+En el sistema se utiliza para realizar búsquedas mediante la opción 8 del menú.
+
 Archivo: `estructuras/arbol_binario.py`
 
 ### 2. Árbol AVL
 
-Es un árbol binario de búsqueda balanceado que permite mantener una altura controlada.
+Es un árbol binario de búsqueda balanceado que mantiene controlada su altura mediante rotaciones.
 
 Se utiliza para buscar series por título de manera eficiente.
+
+En el sistema se utiliza para realizar búsquedas mediante la opción 1 del menú.
 
 Archivo: `estructuras/avl.py`
 
@@ -61,13 +75,17 @@ Organiza las series de forma jerárquica.
 
 La raíz representa al sistema Series-Match, sus hijos representan los géneros y cada género contiene las series correspondientes.
 
+Permite explorar las categorías y realizar recorridos en amplitud.
+
 Archivo: `estructuras/arbol_general.py`
 
 ### 4. Cola de Prioridad
 
 Se implementa mediante un heap máximo.
 
-Permite obtener las series con mayor rating y generar el ranking Top N.
+Prioriza las series según su rating y permite obtener las de mayor puntuación.
+
+Se utiliza para generar el ranking Top N y ordenar las recomendaciones por género.
 
 Archivo: `estructuras/cola_prioridad.py`
 
@@ -77,10 +95,12 @@ Representa las relaciones entre las series del catálogo.
 
 Cada vértice representa una serie y las aristas conectan aquellas que comparten el mismo género.
 
-Se utilizan los algoritmos:
+El grafo es no dirigido y sin pesos, y utiliza una lista de adyacencia para representar las conexiones.
 
-- **BFS:** encuentra el camino más corto entre dos series.
-- **DFS:** explora las series relacionadas en profundidad.
+Se utilizan los siguientes algoritmos:
+
+- **BFS (Breadth-First Search):** permite recorrer el grafo en amplitud y encontrar un camino entre dos series.
+- **DFS (Depth-First Search):** permite explorar las series relacionadas en profundidad.
 
 Archivo: `estructuras/grafo.py`
 
@@ -102,7 +122,7 @@ Archivo: `modelos/serie.py`
 
 ## Carga de datos
 
-Los datos de prueba se encuentran almacenados en un archivo JSON:
+Los datos del catálogo se encuentran almacenados en un archivo JSON:
 
 `datos/series.json`
 
@@ -136,10 +156,15 @@ Series-match/
 │   └── series.json
 │
 ├── docs/
+│   ├── 01-requerimientos.md
 │   ├── 07-analisis-tp3.md
 │   ├── 08-analisis-tp4-tp5.md
 │   ├── 09-analisis-tp6.md
-│   └── 09-analisis-tp7.md
+│   ├── 09-analisis-tp7.md
+│   └── tp0-propuestas.md
+│
+├── ui/
+│   └── terminal.py
 │
 └── README.md
 ```
@@ -156,31 +181,33 @@ python main.py
 
 El menú principal permitirá seleccionar las distintas funcionalidades del sistema.
 
-## Pruebas
+### Pruebas
 
-El proyecto incluye pruebas para verificar el funcionamiento de las estructuras implementadas.
+**Pruebas automatizadas del AVL:**
 
-Los archivos de pruebas se encuentran dentro de la carpeta `algoritmos`.
-
-Para ejecutar las pruebas unitarias de AVL:
-
-```powershell
+```bash
 python -m unittest algoritmos.probar_avl -v
 ```
 
-Para ejecutar las pruebas de la cola de prioridad:
+**Pruebas automatizadas de la cola de prioridad:**
 
-```powershell
+```bash
 python -m unittest algoritmos.probar_cola_prioridad -v
 ```
 
-También se realizaron pruebas manuales desde el menú principal para comprobar las búsquedas, los recorridos, las recomendaciones y el funcionamiento de las estructuras.
+**Prueba manual del BST:**
+
+```bash
+python -m algoritmos.probar_bst
+```
+
+Las pruebas automatizadas verifican las rotaciones del AVL y el funcionamiento de la cola de prioridad. La prueba manual del BST permite comprobar la inserción de series, los recorridos y las búsquedas.
 
 ## Conclusión
 
 A lo largo del desarrollo de Series-Match incorporamos diferentes estructuras de datos y algoritmos para resolver problemas relacionados con la búsqueda, organización y recomendación de series.
 
-El proyecto permitió aplicar los conceptos de árboles binarios, árboles AVL, árboles generales, colas de prioridad y grafos, integrándolos en un mismo sistema.
+El proyecto permitió aplicar los conceptos de árboles binarios de búsqueda, árboles AVL, árboles generales, colas de prioridad y grafos, integrándolos en un mismo sistema.
 
 De esta manera, logramos construir una aplicación que organiza un catálogo de series y ofrece distintas funcionalidades de consulta y recomendación.
 
