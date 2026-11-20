@@ -4,11 +4,11 @@
 
 En este trabajo práctico implementamos un grafo para representar las relaciones entre las series de nuestro proyecto Series-match.
 
-El objetivo es permitir que el sistema recomiende series relacionadas a partir de características en común.
+El objetivo es permitir que el sistema muestre series relacionadas a partir de características en común.
 
 Para esta implementación decidimos utilizar el género de cada serie como criterio de conexión.
 
-De esta manera, cuando un usuario busca una serie, el sistema puede mostrar otras que pertenecen al mismo género.
+De esta manera, dos series quedan conectadas cuando comparten el mismo género.
 
 Además, incorporamos los recorridos BFS y DFS para realizar búsquedas y explorar las conexiones de la red.
 
@@ -95,13 +95,14 @@ Dentro de este archivo implementamos la clase `GrafoSeries`.
 Sus principales métodos son:
 
 - `agregar_vertice()`: agrega una serie al grafo.
-- `agregar_arista()`: conecta dos series.
+- `agregar_arista()`: conecta dos series en ambos sentidos.
 - `obtener_relacionadas()`: devuelve las series conectadas con otra.
 - `mostrar_grafo()`: muestra las conexiones.
 - `cantidad_vertices()`: devuelve la cantidad de series.
 - `cantidad_aristas()`: devuelve la cantidad de conexiones.
-- - `bfs_mas_cercana()`: encuentra automáticamente la serie relacionada más cercana utilizando BFS.
+- `bfs()`: encuentra el camino más corto entre dos series utilizando BFS.
 - `dfs()`: explora las series conectadas en profundidad.
+- `bfs_mas_cercana()`: encuentra automáticamente la serie relacionada más cercana utilizando BFS.
 
 También integramos el grafo en `main.py`.
 
@@ -109,17 +110,17 @@ El programa recorre las series cargadas desde el archivo JSON y conecta automát
 
 ## 6. Consultas implementadas
 
-Definimos dos consultas para aplicar los recorridos de grafos a nuestro sistema de recomendación.
+Definimos consultas para aplicar los recorridos de grafos a nuestro sistema.
 
 ### Consulta mediante BFS
 
-Utilizamos BFS (Breadth-First Search) para encontrar la serie relacionada más cercana a una serie de origen.
+Utilizamos BFS (Breadth-First Search o búsqueda en amplitud) para encontrar el camino más corto entre dos series.
 
 **Caso de uso:**
 
-¿Cuál es la serie relacionada más cercana a The Boys?
+Encontrar el camino más corto entre The Boys y La Casa de Papel.
 
-El programa utiliza el método `bfs_mas_cercana(origen)`, que recibe la serie de origen y encuentra automáticamente la primera serie relacionada a menor distancia.
+El programa solicita al usuario una serie de origen y una serie de destino. Luego utiliza el método `bfs(origen, destino)` para buscar el camino con la menor cantidad de conexiones.
 
 El algoritmo utiliza una cola para visitar los vértices por niveles y un diccionario de predecesores para reconstruir el camino encontrado.
 
@@ -131,7 +132,7 @@ Cantidad de conexiones: 1.
 
 ### Consulta mediante DFS
 
-Utilizamos DFS (Depth-First Search) para explorar en profundidad todas las series alcanzables desde una serie de origen.
+Utilizamos DFS (Depth-First Search o búsqueda en profundidad) para explorar todas las series alcanzables desde una serie de origen.
 
 **Caso de uso:**
 
@@ -171,18 +172,30 @@ Los resultados fueron:
 - Las conexiones funcionaron en ambos sentidos.
 - Se contabilizaron correctamente 3 vértices y 2 aristas.
 
-Además, probamos los recorridos de grafos desde el programa principal:
+Además, probamos los recorridos desde el programa principal:
 
-- BFS encontró la serie relacionada más cercana a The Boys: La Casa de Papel.
-- DFS exploró las series alcanzables desde Stranger Things: Dark, Black Mirror y Lost.
+**Prueba de BFS:**
+- Serie de origen: The Boys.
+- Serie de destino: La Casa de Papel.
+- Camino encontrado: The Boys → La Casa de Papel.
+- Cantidad de conexiones: 1.
+
+**Prueba de DFS:**
+- Serie de origen: Stranger Things.
+- Series recorridas: Stranger Things, Dark, Black Mirror y Lost.
 
 Las pruebas realizadas finalizaron sin errores.
 
 ## 8. Complejidad temporal
 
-Agregar un vértice tiene una complejidad promedio O(1), utilizando un diccionario.
-
-Consultar las series relacionadas tiene una complejidad promedio O(1) para acceder a la lista de vecinos, sin contar el tiempo necesario para mostrar sus elementos.
+| Operación | Complejidad |
+|---|---|
+| Agregar un vértice | O(1) promedio |
+| Agregar una arista | O(1) promedio |
+| Consultar series relacionadas | O(1) para acceder a la lista |
+| Construir las conexiones del grafo | O(n²) |
+| BFS | O(V + E) |
+| DFS | O(V + E) |
 
 Construir las conexiones a partir del catálogo tiene una complejidad O(n²), porque se comparan parejas de series para determinar si comparten género.
 
@@ -205,7 +218,7 @@ BFS y DFS utilizan además un espacio auxiliar O(V) para almacenar los vértices
 
 ### ¿Cuándo conviene utilizar cada uno?
 
-BFS conviene cuando necesitamos encontrar el camino con menor cantidad de aristas entre dos vértices. BFS conviene cuando necesitamos encontrar los vértices más cercanos a uno de origen, considerando la menor cantidad de aristas. Por eso lo utilizamos para encontrar automáticamente la serie relacionada más cercana a The Boys.
+BFS conviene cuando necesitamos encontrar el camino con menor cantidad de aristas entre dos vértices.
 
 DFS conviene cuando queremos explorar las conexiones de un vértice y recorrer los elementos alcanzables en profundidad.
 
@@ -224,11 +237,11 @@ Aunque ambos algoritmos permiten recorrer grafos, se diferencian en el orden de 
 
 ### Limitaciones
 
-Actualmente, las recomendaciones se basan únicamente en el género.
+Actualmente, las relaciones entre series se basan únicamente en el género.
 
 Esto significa que dos series del mismo género pueden estar conectadas aunque sus historias sean muy diferentes.
 
-Además, las recomendaciones no se ordenan por rating ni por popularidad.
+Además, las conexiones no se ordenan por rating ni por popularidad.
 
 Como mejora futura, podríamos incorporar relaciones con pesos que consideren género, rating y otras características.
 
@@ -240,9 +253,9 @@ Implementamos un grafo no dirigido y sin pesos utilizando una lista de adyacenci
 
 Cada vértice representa una serie y cada arista indica que dos series comparten género.
 
-La implementación permitió construir una red de 20 vértices y 22 aristas, además de incorporar funcionalidades de consulta y recomendación.
+La implementación permitió construir una red de 20 vértices y 22 aristas, además de incorporar funcionalidades de consulta y exploración.
 
-También implementamos BFS y DFS, que permiten encontrar caminos más cortos y explorar las conexiones de la red.
+También implementamos BFS y DFS. BFS permite encontrar el camino más corto entre dos series, mientras que DFS permite explorar las conexiones de la red en profundidad.
 
 De esta manera, aplicamos los conceptos de grafos y sus recorridos a un problema práctico de recomendación de contenido.
 
