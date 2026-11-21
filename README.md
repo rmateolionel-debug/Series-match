@@ -20,7 +20,6 @@ El programa funciona desde una interfaz de terminal y carga su catálogo desde `
 5. **Ver series relacionadas:** recorre con DFS el componente del grafo conectado a la serie elegida. Las conexiones representan series que comparten género.
 6. **Encontrar camino:** utiliza BFS para encontrar el camino más corto en cantidad de aristas entre dos series conectadas.
 7. **Recibir recomendación por género:** el usuario elige género, cantidad y rating mínimo; el sistema filtra y ordena los resultados con el heap máximo.
-8. **Ver estadísticas:** muestra cantidad total, cantidad por género, rating promedio, serie mejor valorada y serie más antigua.
 0. **Salir:** finaliza el programa.
 
 ## Estructuras de datos
