@@ -1,4 +1,3 @@
-
 import json
 
 from modelos.serie import Serie
@@ -6,12 +5,9 @@ from estructuras.arbol_binario import ArbolBST
 from estructuras.avl import AVL
 from estructuras.arbol_general import ArbolGeneral
 from estructuras.grafo import GrafoSeries
-
 from ui.terminal import ejecutar_menu
 
-
 # ==================== CARGAR SERIES ====================
-
 def cargar_series():
     with open("datos/series.json", "r", encoding="utf-8") as archivo:
         datos = json.load(archivo)
@@ -30,7 +26,6 @@ def cargar_series():
         series.append(serie)
 
     return series
-
 
 # ==================== ÁRBOL BST (TP3) ====================
 

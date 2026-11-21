@@ -1,41 +1,62 @@
-
 from estructuras.cola_prioridad import obtener_top_n
-
-
 # ==================== COLORES ====================
-
 VIOLETA = "\033[95m"
 ROSA = "\033[38;5;218m"
 LILA = "\033[38;5;183m"
 VERDE = "\033[92m"
 ROJO = "\033[91m"
 RESET = "\033[0m"
-
-
-# ==================== MENÚ ====================
+# ==================== MENÚ PRINCIPAL ====================
 
 def mostrar_menu():
     print("\n" + VIOLETA + "═" * 44)
     print("                 MENÚ PRINCIPAL")
     print("═" * 44 + RESET)
 
-    print("1. Buscar una serie (AVL)")
-    print("2. Ver Top N series")
-    print("3. Explorar categorías (Árbol General)")
-    print("4. Ver series relacionadas (DFS)")
-    print("5. Encontrar camino entre dos series (BFS)")
-    print("6. Recibir recomendación por género")
-    print("7. Ver recorridos y estructuras")
-    print("8. Buscar una serie (BST)")
+    print("1. Ver catálogo de series")
+    print("2. Buscar una serie")
+    print("3. Ver Top N series")
+    print("4. Explorar categorías (Árbol General)")
+    print("5. Ver series relacionadas (DFS)")
+    print("6. Encontrar camino entre dos series (BFS)")
+    print("7. Recibir recomendación por género")
     print("0. Salir")
 
     print(VIOLETA + "═" * 44 + RESET)
 
+# ==================== CATÁLOGO COMPLETO ====================
+def mostrar_catalogo(series):
+    print("\n" + VIOLETA + "═" * 44)
+    print("             CATÁLOGO DE SERIES")
+    print("═" * 44 + RESET)
 
-# ==================== OPCIÓN 1: BÚSQUEDA AVL ====================
+    for posicion, serie in enumerate(series, start=1):
+        print(f"\n{ROSA}{posicion}. {serie.titulo}{RESET}")
+        print(f"   Género: {serie.genero}")
+        print(f"   Rating: {serie.rating} ★")
+        print(f"   Año: {serie.anio}")
+        print(f"   Temporadas: {serie.temporadas}")
 
+    print("\n" + VIOLETA + "═" * 44 + RESET)
+    print(f"Total de series: {len(series)}")
+
+# ==================== SUBMENÚ DE BÚSQUEDA ====================
+def mostrar_submenu_busqueda():
+    print("\n" + VIOLETA + "═" * 44)
+    print("              BUSCAR UNA SERIE")
+    print("═" * 44 + RESET)
+
+    print("1. Buscar con árbol BST (TP3)")
+    print("2. Buscar con árbol AVL (TP4/TP5)")
+    print("0. Volver")
+
+    print(VIOLETA + "═" * 44 + RESET)
+
+# ==================== BÚSQUEDA AVL ====================
 def buscar_serie(arbol_avl):
-    titulo = input("\nIngresá el título de la serie: ").strip().lower()
+    titulo = input(
+        "\nIngresá el título de la serie: "
+    ).strip().lower()
 
     resultado = arbol_avl.buscar(
         titulo,
@@ -53,7 +74,6 @@ def buscar_serie(arbol_avl):
         print(ROJO + "\nNo se encontró la serie." + RESET)
 
 # ==================== BÚSQUEDA BST (TP3) ====================
-
 def buscar_serie_bst(arbol_bst):
     titulo = input(
         "\nIngresá el título de la serie: "
@@ -71,10 +91,9 @@ def buscar_serie_bst(arbol_bst):
         print("Rating:", resultado.rating)
         print("Año:", resultado.anio)
         print("Temporadas:", resultado.temporadas)
-
     else:
         print(ROJO + "\nNo se encontró la serie." + RESET)
-# ==================== OPCIÓN 2: COLA DE PRIORIDAD ====================
+# ==================== TOP N SERIES ====================
 
 def mostrar_top_n(series):
     try:
@@ -97,8 +116,7 @@ def mostrar_top_n(series):
     except ValueError:
         print(ROJO + "Tenés que ingresar un número válido." + RESET)
 
-
-# ==================== OPCIÓN 3: ÁRBOL GENERAL ====================
+# ==================== ÁRBOL GENERAL ====================
 
 def explorar_categorias(arbol_general, nodos_generos):
     print("\nGÉNEROS DISPONIBLES:")
@@ -125,18 +143,14 @@ def explorar_categorias(arbol_general, nodos_generos):
     else:
         print(ROJO + "No se encontró ese género." + RESET)
 
-
 # ==================== BUSCAR TÍTULO EN EL CATÁLOGO ====================
-
 def buscar_titulo_en_catalogo(series, titulo):
     for serie in series:
         if serie.titulo.lower() == titulo.lower():
             return serie.titulo
 
     return None
-
-
-# ==================== OPCIÓN 4: DFS ====================
+# ==================== SERIES RELACIONADAS (DFS) ====================
 
 def mostrar_relacionadas(series, grafo):
     titulo = input(
@@ -163,10 +177,7 @@ def mostrar_relacionadas(series, grafo):
             print(f"{posicion}. {nombre}")
     else:
         print("No se encontraron series relacionadas.")
-
-
-# ==================== OPCIÓN 5: BFS ====================
-
+# ==================== CAMINO ENTRE SERIES (BFS) ====================
 def encontrar_camino(series, grafo):
     titulo_origen = input("\nIngresá la serie de origen: ").strip()
     titulo_destino = input("Ingresá la serie de destino: ").strip()
@@ -186,10 +197,7 @@ def encontrar_camino(series, grafo):
         print("Cantidad de conexiones:", len(camino) - 1)
     else:
         print(ROJO + "No existe un camino entre esas series." + RESET)
-
-
-# ==================== OPCIÓN 6: RECOMENDACIONES ====================
-
+# ==================== RECOMENDACIONES POR GÉNERO ====================
 def recomendar_por_genero(series):
     print("\nGÉNEROS DISPONIBLES:")
 
@@ -228,81 +236,7 @@ def recomendar_por_genero(series):
             f"{posicion}. {serie.titulo} - "
             f"Rating: {serie.rating} ★"
         )
-
-
-# ==================== OPCIÓN 7: RECORRIDOS ====================
-
-def mostrar_recorridos(arbol_avl, arbol_general, nodos_generos, grafo):
-
-    # Recorrido inorder del AVL
-
-    print("\n" + VIOLETA + "═" * 44)
-    print("          RECORRIDO INORDER DEL AVL")
-    print("═" * 44 + RESET)
-
-    for serie in arbol_avl.inorder():
-        print("-", serie.titulo)
-
-    # Información del árbol general
-
-    print("\n" + VIOLETA + "═" * 44)
-    print("          ÁRBOL GENERAL DE SERIES")
-    print("═" * 44 + RESET)
-
-    print("Raíz:", arbol_general.raiz.dato)
-    print("Altura:", arbol_general.altura())
-    print("Cantidad de nodos:", arbol_general.cantidad_nodos())
-
-    # Recorrido en amplitud
-
-    print("\nRECORRIDO EN AMPLITUD:")
-
-    recorrido = arbol_general.amplitud()
-
-    for elemento in recorrido:
-        print("-", elemento)
-
-    # Información del grafo
-
-    print("\n" + VIOLETA + "═" * 44)
-    print("             RED DE SERIES")
-    print("═" * 44 + RESET)
-
-    print("Cantidad de series:", grafo.cantidad_vertices())
-    print("Conexiones:", grafo.cantidad_aristas())
-
-    # BFS
-
-    origen_bfs = "The Boys"
-
-    print("\nBFS - SERIE MÁS CERCANA")
-    print("Origen:", origen_bfs)
-
-    camino = grafo.bfs_mas_cercana(origen_bfs)
-
-    if camino:
-        print(" → ".join(camino))
-        print("Cantidad de conexiones:", len(camino) - 1)
-    else:
-        print("No se encontraron series relacionadas.")
-
-    # DFS
-
-    origen_dfs = "Stranger Things"
-
-    print("\nDFS - EXPLORACIÓN EN PROFUNDIDAD")
-    print("Origen:", origen_dfs)
-
-    recorrido = grafo.dfs(origen_dfs)
-
-    for posicion, titulo in enumerate(recorrido, start=1):
-        print(f"{posicion}. {titulo}")
-
-    print("Total de series exploradas:", len(recorrido))
-
-
 # ==================== EJECUTAR INTERFAZ ====================
-
 def ejecutar_menu(series, arbol_bst, arbol_avl, arbol_general, nodos_generos, grafo):
 
     print("\n")
@@ -321,38 +255,60 @@ def ejecutar_menu(series, arbol_bst, arbol_avl, arbol_general, nodos_generos, gr
         opcion = input("\nSeleccioná una opción: ").strip()
 
         if opcion == "1":
-            buscar_serie(arbol_avl)
-        
+            mostrar_catalogo(series)
+
         elif opcion == "2":
-            mostrar_top_n(series)
+
+            while True:
+                mostrar_submenu_busqueda()
+
+                opcion_busqueda = input(
+                    "\nSeleccioná una opción: "
+                ).strip()
+
+                if opcion_busqueda == "1":
+                    buscar_serie_bst(arbol_bst)
+
+                elif opcion_busqueda == "2":
+                    buscar_serie(arbol_avl)
+
+                elif opcion_busqueda == "0":
+                    break
+
+                else:
+                    print(ROJO + "\nOpción inválida." + RESET)
 
         elif opcion == "3":
-            explorar_categorias(arbol_general, nodos_generos)
+            mostrar_top_n(series)
 
         elif opcion == "4":
-            mostrar_relacionadas(series, grafo)
+            explorar_categorias(arbol_general, nodos_generos)
 
         elif opcion == "5":
-            encontrar_camino(series, grafo)
+            mostrar_relacionadas(series, grafo)
 
         elif opcion == "6":
-            recomendar_por_genero(series)
+            encontrar_camino(series, grafo)
 
         elif opcion == "7":
-            mostrar_recorridos(
-                arbol_avl,
-                arbol_general,
-                nodos_generos,
-                grafo
-            )
-        elif opcion == "8":
-            buscar_serie_bst(arbol_bst)
+            recomendar_por_genero(series)
+
         elif opcion == "0":
-            print("\n" + VIOLETA + "¡Gracias por utilizar SERIES-MATCH!" + RESET)
+            print(
+                "\n" + VIOLETA +
+                "¡Gracias por utilizar SERIES-MATCH!" + RESET
+            )
             break
 
         else:
             print(ROJO + "\nOpción inválida. Intentá nuevamente." + RESET)
 
-        input("\nPresioná ENTER para volver al menú...")
+        if opcion != "0":
+            input("\nPresioná ENTER para volver al menú...")
+
+
+
+
+
+
 
