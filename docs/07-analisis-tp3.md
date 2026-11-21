@@ -1,4 +1,3 @@
-
 # Análisis TP3 — Árbol Binario de Búsqueda
 
 ## 1. ¿Qué resolvimos?
@@ -17,7 +16,11 @@ De esta manera, por ejemplo, buscar `"stranger things"` permite encontrar la ser
 
 ## 3. Prueba del árbol
 
-Salida de `python algoritmos/probar_bst.py`:
+Ejecutamos la prueba mediante el siguiente comando:
+
+`python -m algoritmos.probar_bst`
+
+Salida obtenida:
 
 ```text
 Altura del árbol: 4
@@ -54,25 +57,31 @@ Además, la búsqueda de `"stranger things"` encuentra correctamente la serie co
 
 La altura obtenida para este conjunto de cinco elementos fue **4**.
 
+## 4. Comparación de métodos de búsqueda
+
+Existen diferentes métodos para buscar elementos, cada uno con sus propias características y costos de ejecución.
+
+- **Búsqueda secuencial:** `O(n)`. En el peor caso debe recorrer todos los elementos de la lista hasta encontrar el buscado o determinar que no existe.
+- **Búsqueda binaria:** `O(log n)`, siempre que la lista esté ordenada previamente. El proceso de ordenar los datos tiene un costo de `O(n log n)`.
+- **Búsqueda en árbol BST:** `O(log n)` en promedio cuando el árbol se encuentra razonablemente balanceado. En el peor caso puede ser `O(n)` si el árbol queda degenerado, comportándose de forma similar a una lista.
+
+No realizamos una comparación experimental de tiempos entre estos métodos, ya que ese procedimiento no llegó a trabajarse en clase.
+
 ## 5. Análisis de complejidad
 
-* **Búsqueda secuencial:** `O(n)`. En el peor caso debe recorrer todos los elementos de la lista hasta encontrar el buscado o determinar que no existe.
-
-* **Búsqueda binaria:** `O(log n)`, siempre que la lista esté ordenada previamente. El proceso de ordenar los datos tiene un costo de `O(n log n)`.
-
-* **Búsqueda en árbol BST:** `O(log n)` en promedio cuando el árbol se encuentra razonablemente balanceado. En el peor caso puede ser `O(n)` si el árbol queda degenerado, comportándose de forma similar a una lista.
-
-* **Inserción en el árbol:** `O(log n)` en promedio y `O(n)` en el peor caso.
-
-* **Recorridos (`inorder`, `preorder` y `postorder`):** `O(n)`, porque cada nodo del árbol se visita una vez.
+- **Búsqueda en el BST:** `O(log n)` en promedio y `O(n)` en el peor caso.
+- **Inserción en el árbol:** `O(log n)` en promedio y `O(n)` en el peor caso.
+- **Recorridos (`inorder`, `preorder` y `postorder`):** `O(n)`, porque cada nodo del árbol se visita una vez.
 
 ## 6. Conclusión
 
-A partir de las pruebas realizadas, podemos comparar el comportamiento de los tres métodos de búsqueda: secuencial, binaria y mediante árbol BST.
+A partir de las pruebas realizadas, verificamos que el árbol binario de búsqueda permite organizar las series por título y realizar búsquedas utilizando esa estructura.
 
-Con la prueba realizada verificamos que el BST permite organizar las series por título y realizar búsquedas utilizando esa estructura.
+También comprobamos que el recorrido `inorder` devuelve las series ordenadas alfabéticamente y que el árbol puede encontrar un título existente o indicar que no se encuentra mediante el resultado `None`.
 
-**La comparación final de rendimiento se completará con los tiempos reales obtenidos mediante `algoritmos/medir_tiempos.py`.**
+En cuanto a la complejidad, el BST puede realizar búsquedas en `O(log n)` en promedio si se encuentra equilibrado, aunque en el peor caso puede llegar a `O(n)`.
+
+No realizamos una comparación experimental de tiempos entre los distintos métodos de búsqueda, ya que ese procedimiento no llegó a trabajarse en clase.
 
 ## 7. Errores o dudas que tuvimos
 

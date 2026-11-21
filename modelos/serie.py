@@ -19,7 +19,7 @@ class Serie:
         return self._rating
 
     @property
-    def año(self):
+    def anio(self):
         return self._anio
 
     @property

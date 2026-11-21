@@ -1,74 +1,90 @@
-# 🎬 SeriesMatch
+# 🎬 Series-Match
 
 ## Descripción
 
-SeriesMatch es un sistema de consulta y recomendación de series desarrollado en Python utilizando Programación Orientada a Objetos.
+Series-Match es un sistema de consulta y recomendación de series desarrollado en Python. Integra árboles BST y AVL, un árbol general, una cola de prioridad implementada mediante heap máximo y un grafo no dirigido representado con listas de adyacencia.
 
-El proyecto permite al usuario consultar un catálogo de series y realizar diferentes operaciones para facilitar la elección de qué mirar.
-
-El sistema permite buscar series por título, listar todas las series disponibles y filtrar las series según su género.
+El programa funciona desde una interfaz de terminal y carga su catálogo desde `datos/series.json`.
 
 ## Integrantes
 
 - Milena Iñiguez
-- Yasmin Arbona 
+- Yasmin Arbona
 
-## Dominio
+## Funcionalidades del menú
 
-El dominio elegido para el proyecto es **series y entretenimiento audiovisual**.
+1. **Ver catálogo:** lista las series con género, rating, año y temporadas.
+2. **Buscar una serie:** permite elegir búsqueda mediante BST (TP3) o AVL (TP4).
+3. **Ver Top N:** el usuario indica cuántas series quiere consultar; el heap máximo las devuelve ordenadas por rating.
+4. **Explorar categorías:** permite seleccionar un género y listar sus series mediante el árbol general.
+5. **Ver series relacionadas:** recorre con DFS el componente del grafo conectado a la serie elegida. Las conexiones representan series que comparten género.
+6. **Encontrar camino:** utiliza BFS para encontrar el camino más corto en cantidad de aristas entre dos series conectadas.
+7. **Recibir recomendación por género:** el usuario elige género, cantidad y rating mínimo; el sistema filtra y ordena los resultados con el heap máximo.
+8. **Ver estadísticas:** muestra cantidad total, cantidad por género, rating promedio, serie mejor valorada y serie más antigua.
+0. **Salir:** finaliza el programa.
 
-Elegimos este dominio porque existe una gran cantidad de series disponibles y muchas veces puede resultar difícil decidir qué mirar.
+## Estructuras de datos
 
-## Problema que resuelve
+- **BST:** búsqueda por título y recorridos del árbol binario de búsqueda.
+- **AVL:** búsqueda por título en un árbol binario balanceado.
+- **Árbol general:** jerarquía raíz → géneros → títulos de series.
+- **Heap máximo / cola de prioridad:** ranking Top N y ordenamiento de recomendaciones por rating.
+- **Grafo:** cada vértice representa una serie; existe una arista no dirigida entre series del mismo género. DFS explora las relacionadas y BFS encuentra caminos mínimos en cantidad de conexiones.
 
-SeriesMatch busca solucionar la dificultad que tienen las personas para encontrar una serie que se adapte a sus gustos.
+## Datos del catálogo
 
-El sistema organiza la información de las series y permite realizar búsquedas y filtros para encontrar más fácilmente una opción.
+El archivo `datos/series.json` contiene los registros del catálogo. Cada registro incluye título, género, rating, año y cantidad de temporadas. El programa transforma los registros en objetos de la clase `Serie`.
 
-## Funcionalidades
-
-El sistema cuenta con las siguientes funcionalidades:
-
-1. Buscar una serie por título.
-2. Listar todas las series disponibles.
-3. Filtrar series por género.
-4. Ver el Top N1 de series mejor valoradas.
-5. Gestionar una lista de series favoritas.
-
-## Clases principales
-
-### Serie
-
-Representa una serie del catálogo.
-
-Sus principales atributos son:
-
-- Título
-- Género
-- Rating
-- Año
-- Cantidad de temporadas
-
-### Usuario
-
-Representa al usuario que utiliza el sistema y permite administrar sus series favoritas.
-
-### Genero
-
-Representa los diferentes géneros disponibles para clasificar las series.
-
-### Catalogo
-
-Se encarga de administrar las series y realizar operaciones como:
-
-- Buscar
-- Listar
-- Filtrar
-- Obtener el Top N
-
-## Carga de datos
-
-Los datos de prueba se encuentran almacenados en un archivo JSON:
+## Estructura del proyecto
 
 ```text
-datos/series.json
+Series-match/
+├── algoritmos/                 # Scripts de prueba existentes
+├── datos/
+│   └── series.json
+├── docs/                       # Requerimientos y análisis de los TP
+├── estructuras/
+│   ├── arbol_binario.py
+│   ├── arbol_general.py
+│   ├── avl.py
+│   ├── cola_prioridad.py
+│   └── grafo.py
+├── modelos/
+│   └── serie.py
+├── servicios/
+│   └── catalogo.py             # Estadísticas y recomendaciones
+├── tests/
+│   └── test_series_match.py    # Pruebas automatizadas
+├── ui/
+│   └── terminal.py
+├── main.py
+├── .gitignore
+└── README.md
+```
+
+## Requisitos y ejecución
+
+- Python 3.10 o superior recomendado.
+- No requiere instalar dependencias externas: utiliza la biblioteca estándar de Python.
+
+Desde la carpeta principal del proyecto, ejecutar:
+
+```powershell
+py main.py
+```
+
+## Pruebas automatizadas
+
+Ejecutar desde la carpeta principal:
+
+```powershell
+py -m unittest discover -s tests -v
+```
+
+Las pruebas cubren carga del catálogo, estadísticas, recomendaciones, BST, AVL, heap, árbol general y recorridos BFS/DFS del grafo.
+
+## Alcance y limitaciones
+
+- Las recomendaciones se calculan para cada consulta a partir del género, cantidad y rating mínimo elegidos. No se guarda un perfil ni un historial del usuario.
+- Las relaciones del grafo se definen por compartir género; por eso, dos series de géneros diferentes pueden no tener un camino entre sí.
+- El sistema es una aplicación de terminal; no incluye interfaz web, reproducción de contenido ni conexión con plataformas externas.
